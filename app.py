@@ -86,6 +86,7 @@ def lambda_handler(event, context):
   print(index) # Optional print statement (useful during log inspection)
   predicted_class = class_names[index]
 
+  # Print image name stored in S3 and the predicted class to run tests.
   print('ImageName: {0}, Model Prediction: {1}'.format(key, predicted_class))
 
   # URL of the image predicted, so it can be added to the database
@@ -107,8 +108,6 @@ def lambda_handler(event, context):
       )
 
       if details['Count'] > 0 and details['Items'][0]['ClassName'] == predicted_class:
-
-        print ("Casual pass.")
 
         event = max(details['Items'], key=lambda ev: ev['Count_ClassName'])
 
@@ -135,8 +134,6 @@ def lambda_handler(event, context):
     # If there are 0 counts for the moth uploaded today for prediction,
     # Enter a fresh item into the database.
       elif details['Count'] == 0:
-
-        print('Casual pass 2.')
         new_count = 1
         table_items = table.put_item(
               Item={
@@ -152,7 +149,7 @@ def lambda_handler(event, context):
         print("Added new object!")
         return table_items
 
-  print("Updated model predidctions successfully!")
+  print("Updated model predictions successfully!")
    
 
 def readImageFromBucket(key, bucket_name):
@@ -165,7 +162,6 @@ def readImageFromBucket(key, bucket_name):
   """
   # Reading the object from 
   bucket = s3.Bucket(bucket_name)
-  #parsed_key = unquote(key)
   object = bucket.Object(key)
   response = object.get()
   return Image.open(response['Body'])

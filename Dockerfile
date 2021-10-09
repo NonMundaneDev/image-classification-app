@@ -4,7 +4,7 @@ FROM public.ecr.aws/lambda/python:3.8
 # Replace "Neptune.ai technical guide" with your name and email address
 LABEL maintainer="Stephen Oladele <steve.deve89@gmail.com>"
 LABEL version="1.0"
-LABEL description="Demo flower classification application for serverless deployment."
+LABEL description="Demo moth classification application for serverless deployment for Neptune.ai technical guide."
 
 # Install OS packages for Pillow-SIMD
 RUN yum -y install tar gzip zlib freetype-devel \
@@ -42,12 +42,12 @@ RUN pip uninstall -y pillow && CC="cc -mavx2" pip install -U --force-reinstall p
 COPY app.py ./
 
 # Download the model from the public object store (S3) and save it inor ./model as model.tar.gz
-# Extract it to the model/ directoty
+# Extract it to the model/ directory
 # Remove the compressed file from the directory leaving only the extracted files
 RUN mkdir model
-RUN curl -L https://flower-app-serverless.s3.us-east-2.amazonaws.com/model/model.tar.gz -o ./model/model.tar.gz
-RUN tar -xf model/model.tar.gz -C model/
-RUN rm -r model/model.tar.gz
+RUN curl -L https://sagemaker-mothmodel-artifact.s3.us-east-2.amazonaws.com/models/resnet_model.tar -o ./model/resnet.tar.gz
+RUN tar -xf model/resnet.tar.gz -C model/
+RUN rm -r model/resnet.tar.gz
 
 
 # Set the CMD to your handler

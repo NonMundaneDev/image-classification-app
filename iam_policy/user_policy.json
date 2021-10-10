@@ -1,0 +1,75 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "logs:GetLogEvents",
+            "Resource": "arn:aws:logs:*:<ENTER YOUR ACCOUNT ID>:log-group:*:log-stream:*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "logs:ListTagsLogGroup",
+                "logs:DescribeLogGroups",
+                "logs:DescribeLogStreams",
+                "logs:DescribeSubscriptionFilters",
+                "logs:StartQuery",
+                "logs:DescribeMetricFilters",
+                "logs:FilterLogEvents",
+                "logs:GetLogGroupFields"
+            ],
+            "Resource": "arn:aws:logs:*:<ENTER YOUR ACCOUNT ID>:log-group:*"
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "logs:GetLogRecord",
+                "codepipeline:AcknowledgeThirdPartyJob",
+                "logs:GetLogDelivery",
+                "logs:ListLogDeliveries",
+                "codebuild:*",
+                "codepipeline:PutThirdPartyJobFailureResult",
+                "codepipeline:PutJobFailureResult",
+                "codepipeline:ListPipelines",
+                "codedeploy:*",
+                "sagemaker:*",
+                "logs:DescribeQueryDefinitions",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeDestinations",
+                "codepipeline:GetActionType",
+                "logs:DescribeQueries",
+                "codepipeline:PutThirdPartyJobSuccessResult",
+                "codepipeline:PollForThirdPartyJobs",
+                "apigateway:*",
+                "s3:*",
+                "codepipeline:PutJobSuccessResult",
+                "logs:StopQuery",
+                "logs:TestMetricFilter",
+                "codepipeline:GetThirdPartyJobDetails",
+                "s3-object-lambda:*",
+                "ecr-public:*",
+                "codepipeline:GetJobDetails",
+                "iam:*",
+                "codecommit:*",
+                "logs:DescribeExportTasks",
+                "logs:GetQueryResults",
+                "cloudwatch:*",
+                "lambda:*",
+                "codepipeline:AcknowledgeJob",
+                "ec2:*",
+                "ecr:*",
+                "codepipeline:ListActionTypes"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Allow",
+            "Action": "codepipeline:*",
+            "Resource": "*"
+        }
+    ]
+}

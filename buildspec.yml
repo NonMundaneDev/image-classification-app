@@ -10,7 +10,7 @@ phases:
       - pip install --upgrade awscli==1.18.17
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=835397466716.dkr.ecr.us-east-2.amazonaws.com/image-app-repo
+      - REPOSITORY_URI=<REPLACE WITH ECR REPOSITORY URI>
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:

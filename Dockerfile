@@ -2,7 +2,7 @@
 FROM public.ecr.aws/lambda/python:3.8
 
 # Replace "Neptune.ai technical guide" with your name and email address
-LABEL maintainer="Stephen Oladele <steve.deve89@gmail.com>"
+LABEL maintainer="<YOUR NAME> <YOUR EMAIL>"
 LABEL version="1.0"
 LABEL description="Demo moth classification application for serverless deployment for Neptune.ai technical guide."
 
@@ -45,6 +45,7 @@ COPY app.py ./
 # Extract it to the model/ directory
 # Remove the compressed file from the directory leaving only the extracted files
 RUN mkdir model
+# YOU CAN REPLACE THE LINK BELOW WITH YOUR OWN MODEL URL
 RUN curl -L https://sagemaker-mothmodel-artifact.s3.us-east-2.amazonaws.com/models/resnet_model.tar -o ./model/resnet.tar.gz
 RUN tar -xf model/resnet.tar.gz -C model/
 RUN rm -r model/resnet.tar.gz

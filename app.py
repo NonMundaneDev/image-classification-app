@@ -47,7 +47,7 @@ s3 = boto3.resource('s3')
 dynamodb = boto3.resource('dynamodb')
 
 # Select dynamodb table
-table = dynamodb.Table('PredictionsTable')
+table = dynamodb.Table('<REPLACE WITH TABLE NAME>')
 
 def lambda_handler(event, context):
 
@@ -90,7 +90,7 @@ def lambda_handler(event, context):
   print('ImageName: {0}, Model Prediction: {1}'.format(key, predicted_class))
 
   # URL of the image predicted, so it can be added to the database
-  img_url = f"https://images-for-inference.s3.us-east-2.amazonaws.com/{key}?versionId={versionId}"
+  img_url = f"https://<NAME OF BUKCET FOR INFERENCE IMAGES>.s3.<REGION>.amazonaws.com/{key}?versionId={versionId}"
 
 
   # The code below checks if the predicted class is available in the DB for a particular day.
@@ -100,7 +100,8 @@ def lambda_handler(event, context):
   for i in class_names:
 
     if predicted_class == i: 
-
+      # Using scan is ineffectie and costly if your DB will hold a lot of items.
+      # Try using query or the GetItem or BacthGetItem APIs.
       details = table.scan(
           FilterExpression=Key('PredictionDate').eq(date) 
           & Attr("ClassName").eq(predicted_class),
@@ -146,7 +147,7 @@ def lambda_handler(event, context):
                 'ConfidenceScore': pred_probability
               }
             )
-        print("Added new object!")
+        print(f"Added new object to {table.name}!")
         return table_items
 
   print("Updated model predictions successfully!")
